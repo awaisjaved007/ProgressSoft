@@ -1,0 +1,7 @@
+.excel-table{
+    white-space: nowrap;
+}
+
+table.dataTable td.dataTables_empty {
+    text-align: left;
+}
