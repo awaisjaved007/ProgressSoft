@@ -11,26 +11,25 @@
 <link th:href="@{/css/style.css}" rel="stylesheet"/>
 
 <script type="text/javascript">
-    function getAllRecords(value) {
-        $(document).ready(function () {
-            var table = $('#dealsTable').DataTable({
-                "sAjaxSource": "/fetch/" + value,
-                "sAjaxDataProp": '',
-                "pageLength": 100,
-                "ordering": false,
-                "scrollX": true,
-                "retrieve": true,
-                "scrollY": 380,
-                "aoColumns": [
-                    {"data": "uniqueDealId"},
-                    {"data": "fromCurrencyISO"},
-                    {"data": "toCurrencyISO"},
-                    {"data": "date"},
-                    {"data": "amount"},
-                    {"data": "fileName"},
-                ]
-            })
-        });
+
+    function getAllRecords() {
+        var sel = document.getElementsByName('uploadedFiles');
+        var table = $('#dealsTable').DataTable({
+            "sAjaxSource": "/fetch/" + sel[0].value,
+            "sAjaxDataProp": 'deals',
+            "pageLength": 10000,
+            "ordering": false,
+            "destroy" : true,
+            "scrollY": 380,
+            "aoColumns": [
+                {"data": "uniqueDealId", "title": "Unique Deal Id",},
+                {"data": "fromCurrencyISO", "title":"From Currency ISO"},
+                {"data": "toCurrencyISO", "title":"To Currency ISO"},
+                {"data": "date", "title":"Date"},
+                {"data": "amount", "title":"Amount"},
+                {"data": "fileName", "title":"File Name"},
+            ]
+        })
     }
 </script>
 <body>
@@ -56,8 +55,8 @@
 <div>
 
     <form>
-        Select a Category:&nbsp;
-        <select name="category" var="selectedValue" onchange="getAllRecords('test.csv')">
+        Select a file name:&nbsp;
+        <select name="uploadedFiles" var="selectedValue" onchange="getAllRecords()">
             <c:forEach items="${fileNames}" var="fileName">
                 <option value="NONE">Select</option>
                 <option value="${fileName}">${fileName}</option>
@@ -65,17 +64,7 @@
         </select>
         <br/><br/>
 
-        <table id="dealsTable" class="display excel-table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>From ISO CODE</th>
-                <th>TO ISO CODE</th>
-                <th>TIME STAMP</th>
-                <th>AMOUNT</th>
-                <th>FILE NAME</th>
-            </tr>
-            </thead>
+        <table id="dealsTable" >
         </table>
     </form>
 </div>

@@ -4,7 +4,6 @@ import com.progsoft.assignment.exceptions.MissingDataException;
 import com.progsoft.assignment.model.Deal;
 import com.progsoft.assignment.model.Statistics;
 import com.progsoft.assignment.repository.DealJpaRepository;
-import com.progsoft.assignment.repository.DealRepository;
 import com.progsoft.assignment.repository.StatisticsRepository;
 import com.progsoft.assignment.utils.ResponseBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -58,9 +57,9 @@ public class FileProcessingServiceImpl implements FileProcessingService {
         log.info("Processing end at:" + duration);
 
         return ResponseBuilder.create()
-                .put("DealsCount", result.get("validRecords").size())
-                .put("InvalidDealsCount", result.get("inValidRecords").size())
-                .put("ProcessingTime", duration).build();
+                .put("dealsCount", result.get("validRecords").size())
+                .put("invalidDealsCount", result.get("inValidRecords").size())
+                .put("processingTime", duration).build();
     }
 
     private Map<String, Integer> setProjectIdAndCountByISOCode(final List<Deal> deals, final String fileName) {

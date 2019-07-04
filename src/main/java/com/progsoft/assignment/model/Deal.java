@@ -19,6 +19,7 @@ public class Deal {
     @Id
     @Parsed
     @Validate
+    @Column(name = "id")
     private Long uniqueDealId;
 
     @Parsed
@@ -44,9 +45,5 @@ public class Deal {
 
     @Column(name = "file_name")
     private String fileName;
-
-    public String getFromCurrencyISO() {
-        return fromCurrencyISO;
-    }
 
 }

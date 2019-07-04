@@ -3,6 +3,7 @@ package com.progsoft.assignment.controller;
 import com.progsoft.assignment.exceptions.MissingDataException;
 import com.progsoft.assignment.model.Deal;
 import com.progsoft.assignment.service.FileProcessingService;
+import com.progsoft.assignment.utils.ResponseBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
@@ -14,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -34,16 +34,17 @@ public class DealController {
     }
 
     @RequestMapping(value = "/fetch")
-    public String listEmployee(Model model) throws IOException {
+    public String fetchFileNames(Model model) throws IOException {
         List<String> fileNames = fileProcessingService.fetchAllFileNames();
         model.addAttribute("fileNames", fileNames);
         return "index";
     }
 
+
     @RequestMapping(value = "/fetch/{fileName}")
-    public List<Deal> allDealsByFileName(Model model, @PathVariable final String fileName) throws IOException {
+    public ResponseEntity<?> getAllDeals(@PathVariable final String fileName) throws IOException {
         List<Deal> deals = fileProcessingService.fetchAllByFileName(fileName);
-        return deals;
+        return ResponseEntity.ok(ResponseBuilder.create().put("deals",deals).build());
     }
 
     @PostMapping("/upload")
@@ -73,7 +74,7 @@ public class DealController {
         }
         if (isUploaded) {
             model.addAllAttributes(response);
-            return listEmployee(model);
+            return fetchFileNames(model);
            // return ResponseEntity.ok(response);
         } else {
             throw new MissingDataException("Please upload file in CSV format.");
