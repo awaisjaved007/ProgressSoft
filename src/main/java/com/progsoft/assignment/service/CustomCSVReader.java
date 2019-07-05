@@ -11,6 +11,7 @@ import com.univocity.parsers.csv.CsvParserSettings;
 import com.univocity.parsers.csv.CsvRoutines;
 import com.univocity.parsers.csv.CsvWriterSettings;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Description;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -23,9 +24,17 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
+@Description("Service to parse CSV file.")
 @Service
 public class CustomCSVReader {
 
+    /**
+     * Read Data from uploaded CSV input stream
+     *
+     * @param inputStream
+     * @param fileName
+     * @return Map consists on two list (Valid and Invalid Deals)
+     */
     public Map<String, List> read(InputStream inputStream, final String fileName) {
         log.info(CommonUtils.concat("Reading file " + fileName));
         List<Deal> deals;
@@ -49,6 +58,13 @@ public class CustomCSVReader {
         return results;
     }
 
+    /**
+     * Handling invalid records in CSV
+     *
+     * @param fileName
+     * @param inValidDeals
+     * @return CSV parser setting object
+     */
     private CsvParserSettings getParserSettings(final String fileName, List<InValidDeal> inValidDeals) {
         CsvParserSettings settings = new CsvParserSettings();
         settings.setColumnReorderingEnabled(false);
@@ -64,6 +80,9 @@ public class CustomCSVReader {
         return settings;
     }
 
+    /**
+     * @return CSV Writer to write data into Deals object
+     */
     private CsvWriterSettings getWriterSettings() {
         CsvWriterSettings writerSettings = new CsvWriterSettings();
         writerSettings.getFormat().setLineSeparator("\r\n");

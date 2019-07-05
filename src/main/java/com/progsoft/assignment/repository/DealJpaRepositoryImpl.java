@@ -2,6 +2,7 @@ package com.progsoft.assignment.repository;
 
 import com.progsoft.assignment.model.Deal;
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +18,7 @@ public class DealJpaRepositoryImpl implements DealJpaRepository {
 
     private DealRepository dealRepository;
 
+    @Autowired
     public DealJpaRepositoryImpl(DealRepository dealRepository) {
         this.dealRepository = dealRepository;
     }
@@ -28,7 +30,7 @@ public class DealJpaRepositoryImpl implements DealJpaRepository {
     private Integer HIBERNATE_BATCH_SIZE;
 
     @Override
-    public Boolean publish(Map<String, List> records) {
+    public Boolean saveDeals(Map<String, List> records) {
         final EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.unwrap(Session.class).setJdbcBatchSize(HIBERNATE_BATCH_SIZE);
         entityManager.getTransaction().begin();

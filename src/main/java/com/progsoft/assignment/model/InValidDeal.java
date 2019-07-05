@@ -13,7 +13,9 @@ public class InValidDeal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "uniqueId")
     private String uniqueId;
+
     @Column(name = "from_currency_iso")
     private String fromCurrencyISO;
 

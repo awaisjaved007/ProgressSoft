@@ -1,14 +1,5 @@
 package com.progsoft.assignment.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.Collection;
-import java.util.Map;
-
 public final class CommonUtils {
 
     /**

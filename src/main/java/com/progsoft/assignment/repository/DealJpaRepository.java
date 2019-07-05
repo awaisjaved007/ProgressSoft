@@ -7,9 +7,11 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface DealJpaRepository {
-    Boolean publish(Map<String, List> records);
+    Boolean saveDeals(Map<String, List> records);
+
     Optional<Deal> getFirstByFileName(final String fileName);
+
     List<String> findDistinctFileNames();
+
     List<Deal> findAllByFileName(final String fileName);
 }
-

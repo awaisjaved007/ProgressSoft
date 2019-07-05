@@ -8,6 +8,8 @@ import java.util.Map;
 
 public interface FileProcessingService {
     Map process(final InputStream inputStream, final String fileName);
+
     List<String> fetchAllFileNames();
+
     List<Deal> fetchAllByFileName(final String fileName);
 }

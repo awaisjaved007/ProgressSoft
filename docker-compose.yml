@@ -1,0 +1,37 @@
+version: '3.2'
+services:
+
+  springboot:
+    build:
+      context: ./
+      dockerfile: progress-soft-assignment.dockerfile
+      args:
+        artifactid: Assignment
+        version: 0.0.1-SNAPSHOT
+    image: progress-soft/assignment
+    ports:
+      - 8080:8080
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - spdoc-net
+
+  sp-db:
+    build:
+      context: ./
+      dockerfile: db.dockerfile
+    image: progress-soft-assignment/database
+    ports:
+        - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./data/db-data:/var/lib/mysql
+      - ./data/db-init:/docker-entrypoint-initdb.d
+    networks:
+      - spdoc-net
+
+networks:
+  spdoc-net:

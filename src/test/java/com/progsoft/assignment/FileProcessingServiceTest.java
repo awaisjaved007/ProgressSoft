@@ -52,7 +52,7 @@ public class FileProcessingServiceTest {
         Optional<Deal> optionalDeal = Optional.empty();
         FileInputStream inputStream = new FileInputStream(this.getClass().getResource("/test.csv").getPath());
         Mockito.when(this.dealJpaRepository.getFirstByFileName(anyString())).thenReturn(optionalDeal);
-        Mockito.when(this.dealJpaRepository.publish(anyMap())).thenReturn(Boolean.TRUE);
+        Mockito.when(this.dealJpaRepository.saveDeals(anyMap())).thenReturn(Boolean.TRUE);
         Mockito.when(this.statisticsRepository.saveAll(anyList())).thenReturn(Mockito.anyList());
         Map response = fileProcessingService.process(inputStream, "test.csv");
         assert response != null;

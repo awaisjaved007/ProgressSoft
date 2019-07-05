@@ -33,7 +33,7 @@ public class DealController {
         this.fileProcessingService = fileProcessingService;
     }
 
-    @RequestMapping(value = "/fetch")
+    @RequestMapping(value = "/")
     public String fetchFileNames(Model model) throws IOException {
         List<String> fileNames = fileProcessingService.fetchAllFileNames();
         model.addAttribute("fileNames", fileNames);
@@ -48,7 +48,7 @@ public class DealController {
     }
 
     @PostMapping("/upload")
-    public Object handleFileUpload(Model model,final HttpServletRequest httpServletRequest) throws IOException{
+    public Object handleFileUpload(final HttpServletRequest httpServletRequest) throws IOException{
         boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
         boolean isUploaded = false;
         Map response = null;
@@ -73,9 +73,7 @@ public class DealController {
             throw new MissingDataException("File not found.");
         }
         if (isUploaded) {
-            model.addAllAttributes(response);
-            return fetchFileNames(model);
-           // return ResponseEntity.ok(response);
+            return ResponseEntity.ok(response);
         } else {
             throw new MissingDataException("Please upload file in CSV format.");
         }
