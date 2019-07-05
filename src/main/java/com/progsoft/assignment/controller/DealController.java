@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +33,7 @@ public class DealController {
     }
 
     @RequestMapping(value = "/")
-    public String fetchFileNames(Model model) throws IOException {
+    public String fetchFileNames(Model model) {
         List<String> fileNames = fileProcessingService.fetchAllFileNames();
         model.addAttribute("fileNames", fileNames);
         return "index";
@@ -42,13 +41,13 @@ public class DealController {
 
 
     @RequestMapping(value = "/fetch/{fileName}")
-    public ResponseEntity<?> getAllDeals(@PathVariable final String fileName) throws IOException {
+    public ResponseEntity<?> getAllDeals(@PathVariable final String fileName) {
         List<Deal> deals = fileProcessingService.fetchAllByFileName(fileName);
-        return ResponseEntity.ok(ResponseBuilder.create().put("deals",deals).build());
+        return ResponseEntity.ok(ResponseBuilder.create().put("deals", deals).build());
     }
 
     @PostMapping("/upload")
-    public Object handleFileUpload(final HttpServletRequest httpServletRequest) throws IOException{
+    public Object handleFileUpload(final HttpServletRequest httpServletRequest) {
         boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
         boolean isUploaded = false;
         Map response = null;

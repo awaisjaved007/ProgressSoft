@@ -40,10 +40,11 @@ public class FileProcessingServiceImpl implements FileProcessingService {
 
     /**
      * @param inputStream of CSV file
-     * @param fileName
+     * @param fileName    uploaded Csv file name
      * @return return Map with Valid and Invalid Deals count and Time duration of file upload
      */
     @Override
+    @SuppressWarnings("unchecked")
     public Map process(final InputStream inputStream, final String fileName) {
         final long startTime = System.nanoTime();
 
@@ -61,6 +62,7 @@ public class FileProcessingServiceImpl implements FileProcessingService {
         /*Saving ISO currency deals count*/
         this.updateStatics(isoCodeDealCountMap);
 
+        /*Converting nano seconds to seconds by dividing 1000000000d*/
         final double duration = (System.nanoTime() - startTime) / 1000000000d;
         log.info("Processing end at:" + duration);
 
@@ -74,7 +76,7 @@ public class FileProcessingServiceImpl implements FileProcessingService {
      * Assigning filename and calculation of Deals count for ISO code
      *
      * @param deals    object to update property of file name
-     * @param fileName
+     * @param fileName uploaded Csv file name
      * @return Map with count of deal group by From ISO Code.
      * ISO code will be key and it's count will be value
      */
@@ -90,7 +92,7 @@ public class FileProcessingServiceImpl implements FileProcessingService {
     /**
      * Validate if file already uploaded or not in data base
      *
-     * @param fileName
+     * @param fileName uploaded Csv file name
      * @return True or False on the base of validation
      */
     @Transactional(readOnly = true)
@@ -135,7 +137,7 @@ public class FileProcessingServiceImpl implements FileProcessingService {
     /**
      * Getting all valid deals for specific file name
      *
-     * @param fileName
+     * @param fileName Uploaded Csv file name
      * @return List of valid deal objects
      */
     @Override

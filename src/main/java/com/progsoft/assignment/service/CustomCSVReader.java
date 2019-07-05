@@ -31,11 +31,11 @@ public class CustomCSVReader {
     /**
      * Read Data from uploaded CSV input stream
      *
-     * @param inputStream
-     * @param fileName
+     * @param inputStream csv file stream
+     * @param fileName    uploaded file name
      * @return Map consists on two list (Valid and Invalid Deals)
      */
-    public Map<String, List> read(InputStream inputStream, final String fileName) {
+    Map<String, List> read(InputStream inputStream, final String fileName) {
         log.info(CommonUtils.concat("Reading file " + fileName));
         List<Deal> deals;
         List<InValidDeal> inValidDeals = new LinkedList<>();
@@ -61,8 +61,8 @@ public class CustomCSVReader {
     /**
      * Handling invalid records in CSV
      *
-     * @param fileName
-     * @param inValidDeals
+     * @param fileName uploaded CSV file name
+     * @param inValidDeals Invalid Deals List
      * @return CSV parser setting object
      */
     private CsvParserSettings getParserSettings(final String fileName, List<InValidDeal> inValidDeals) {
