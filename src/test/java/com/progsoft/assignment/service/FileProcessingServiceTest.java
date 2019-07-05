@@ -1,12 +1,9 @@
-package com.progsoft.assignment;
+package com.progsoft.assignment.service;
 
 import com.progsoft.assignment.exceptions.MissingDataException;
 import com.progsoft.assignment.model.Deal;
 import com.progsoft.assignment.repository.DealJpaRepository;
 import com.progsoft.assignment.repository.StatisticsRepository;
-import com.progsoft.assignment.service.CustomCSVReader;
-import com.progsoft.assignment.service.FileProcessingService;
-import com.progsoft.assignment.service.FileProcessingServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -57,4 +56,16 @@ public class FileProcessingServiceTest {
         Map response = fileProcessingService.process(inputStream, "test.csv");
         assert response != null;
     }
+
+    @Test()
+    public void whenFetchAllDealByFileName_ReturnList() {
+        Deal deal = new Deal();
+        List<Deal> deals = new ArrayList<>();
+        deals.add(deal);
+        Mockito.when(this.dealJpaRepository.findAllByFileName(anyString())).thenReturn(deals);
+
+        List<Deal> response = fileProcessingService.fetchAllByFileName(anyString());
+        assert response.size() == deals.size();
+    }
+
 }

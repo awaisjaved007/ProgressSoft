@@ -15,23 +15,6 @@ public class MissingDataException extends RuntimeException {
 
     /**
      * Instantiates a new missing data exception.
-     */
-    public MissingDataException() {
-        super();
-    }
-
-    /**
-     * Instantiates a new missing data exception.
-     *
-     * @param message the message
-     * @param cause   the cause
-     */
-    public MissingDataException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
-
-    /**
-     * Instantiates a new missing data exception.
      *
      * @param message the message
      */
@@ -39,12 +22,4 @@ public class MissingDataException extends RuntimeException {
         super(message);
     }
 
-    /**
-     * Instantiates a new missing data exception.
-     *
-     * @param cause the cause
-     */
-    public MissingDataException(final Throwable cause) {
-        super(cause);
-    }
 }
