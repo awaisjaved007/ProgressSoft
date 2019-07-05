@@ -18,9 +18,9 @@ Tested file is the part of Resources folder of Test section with name test.csv
 Development of pagination in backend service.
 
 ## How to Run ?
-1   mvn package -DskipTests
-2   docker-compose build
-3   docker-compose up -d
+1.   mvn package -DskipTests
+2.   docker-compose build
+3.   docker-compose up -d
 
 
 
