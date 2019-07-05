@@ -15,6 +15,13 @@ As this is monolithic web application, I have written it's User interface in JSP
 Tested file is the part of Resources folder of Test section with name test.csv
 
 ## Remaining Tasks
-Development of pagination in backend service 
+Development of pagination in backend service.
+
+## How to Run ?
+1   mvn package -DskipTests
+2   docker-compose build
+3   docker-compose up -d
+
+
 
 
